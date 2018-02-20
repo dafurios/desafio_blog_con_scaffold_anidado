@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+
+
+<br>
+<%= form_with(model: [@post, Comment.new], local: true) do |form|  %>
+
+  <%= form.label :content  %>
+  <%= form.text_area :content %> <br>
+  <%= form.submit 'Comentar' %>
+
+<% end %>
+
+<% @post.comments.each do |comment| %>
+  <li>
+    <%= comment.content %>
+    <%= link_to 'x', post_comment_path(@post, comment), method: :delete, class: "btn btn-danger btn-sm"  %>
+    <%= link_to 'Editar', edit_post_comment_path(@post, comment), class: "btn btn-success btn-sm"  %>
+  </li>
+<% end %>
+
+
+
+<!-- modal -->
